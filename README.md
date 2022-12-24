@@ -1,5 +1,7 @@
 # StatiqMermaid
 
+[![StatiqMermaid on NuGet](https://img.shields.io/nuget/v/Ociaw.StatiqMermaid)](https://www.nuget.org/packages/Ociaw.StatiqMermaid/)
+
 Provides [Statiq](https://www.statiq.dev/) modules and a pipeline to generate
 diagrams from code. Depends upon
 [Mermaid CLI](https://github.com/mermaid-js/mermaid-cli).
