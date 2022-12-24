@@ -8,25 +8,29 @@
         <Nullable>enable</Nullable>
         <AnalysisLevel>7</AnalysisLevel>
         <GenerateDocumentationFile>true</GenerateDocumentationFile>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     </PropertyGroup>
     
     <PropertyGroup>
         <Description>This library supplements Statiq Docs by building SVG-based diagrams of type hierarchies using Mermaid.JS.</Description>
         <PackageTags>Statiq Mermaid.JS</PackageTags>
-        <Version>0.1.0-beta.1</Version>
         <Authors>ociaw</Authors>
         <Company>ociaw</Company>
         <PackageLicenseExpression>MIT</PackageLicenseExpression>
         <PackageProjectUrl>https://github.com/ociaw/StatiqMermaid</PackageProjectUrl>
         <RepositoryUrl>https://github.com/ociaw/StatiqMermaid.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <Version>0.1.0-beta.1</Version>
         <PackageReleaseNotes>Initial release</PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>
       <PackageReference Include="Statiq.CodeAnalysis" Version="1.0.0-beta.64" />
       <PackageReference Include="Statiq.Core" Version="1.0.0-beta.64" />
+    </ItemGroup>
+    
+    <ItemGroup>
+        <None Include="../README.md" Pack="true" PackagePath="/" />
     </ItemGroup>
 
 </Project>
