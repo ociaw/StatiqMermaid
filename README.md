@@ -1,3 +1,5 @@
+# StatiqMermaid
+
 Provides [Statiq](https://www.statiq.dev/) modules and a pipeline to generate
 diagrams from code. Depends upon
 [Mermaid CLI](https://github.com/mermaid-js/mermaid-cli).
@@ -12,12 +14,13 @@ before the "Content" pipeline. It pulls documents API that have the Kind of
 NamedType, then feeds them to BuildMermaidDefinition and RenderMermaidSvg,
 respectively, before writing the resulting SVGs to the file system.
 
-Usage
------
+## Usage
 
 Adding the pipeline:
 
 ```csharp
+using Ociaw.StatiqMermaid;
+
 await Bootstrapper.Factory
     .CreateDocs(args)
     .AddSourceFiles(sourceGlob)
