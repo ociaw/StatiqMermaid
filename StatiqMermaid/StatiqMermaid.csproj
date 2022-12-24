@@ -11,6 +11,7 @@
     </PropertyGroup>
     
     <PropertyGroup>
+        <PackageId>Ociaw.StatiqMermaid</PackageId>
         <Description>This library supplements Statiq Docs by building SVG-based diagrams of type hierarchies using Mermaid.JS.</Description>
         <PackageTags>Statiq Mermaid.JS</PackageTags>
         <Authors>ociaw</Authors>
