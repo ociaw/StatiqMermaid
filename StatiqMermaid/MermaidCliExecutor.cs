@@ -59,7 +59,7 @@ public sealed class MermaidCliExecutor : IDisposable
         {
             RedirectStandardInput = true
         };
-        args.ArgumentList.AddRange("--quiet", "--outputFormat", "svg", "--output", outputFile);
+        args.ArgumentList.AddRange("--quiet", "--i", "-", "--outputFormat", "svg", "--output", outputFile);
 
         using (var proc = Process.Start(args))
         {
