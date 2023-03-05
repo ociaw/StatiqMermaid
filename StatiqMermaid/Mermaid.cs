@@ -11,15 +11,9 @@ namespace Ociaw.StatiqMermaid;
 public sealed class Mermaid : Pipeline
 {
     /// <summary>
-    /// Creates a new instance of <see cref="Mermaid"/> with default settings.
+    /// Creates a new <see cref="Mermaid"/> pipeline with the default configuration functions.
     /// </summary>
-    public Mermaid() : this("mmdc")
-    { }
-
-    /// <summary>
-    /// Creates a new <see cref="Mermaid"/> with the specified Mermaid executable.
-    /// </summary>
-    public Mermaid(String mermaidExecutable)
+    public Mermaid()
     {
         Dependencies.Add("Api");
         DependencyOf.Add("Content");
@@ -29,7 +23,29 @@ public sealed class Mermaid : Pipeline
             new FilterDocuments(Config.FromDocument(doc => doc.GetString(CodeAnalysisKeys.Kind) == SymbolKind.NamedType.ToString())),   
             new CacheDocuments(
                 new BuildMermaidDefinition(),
-                new RenderMermaidSvg(mermaidExecutable),
+                new RenderMermaidSvg(),
+                new WriteFiles()
+            )
+        );
+    }
+
+    /// <summary>
+    /// Creates a new <see cref="Mermaid"/> pipeline with the specified configuration functions.
+    /// </summary>
+    /// <param name="mermaidExecutable">The executable path.</param>
+    /// <param name="maxConcurrency">The maximum number of concurrent mermaid executions allowed.</param>
+    /// <param name="mermaidTimeout">The length of time mermaid CLI can execute before being cancelled.</param>
+    public Mermaid(Config<String> mermaidExecutable, Config<TimeSpan> mermaidTimeout, Config<Int32> maxConcurrency)
+    {
+        Dependencies.Add("Api");
+        DependencyOf.Add("Content");
+
+        ProcessModules = new ModuleList(
+            new ConcatDocuments("Api"),
+            new FilterDocuments(Config.FromDocument(doc => doc.GetString(CodeAnalysisKeys.Kind) == SymbolKind.NamedType.ToString())),   
+            new CacheDocuments(
+                new BuildMermaidDefinition(),
+                new RenderMermaidSvg(mermaidExecutable, mermaidTimeout, maxConcurrency),
                 new WriteFiles()
             )
         );

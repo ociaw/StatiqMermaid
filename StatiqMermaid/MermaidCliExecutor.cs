@@ -6,22 +6,24 @@ namespace  Ociaw.StatiqMermaid;
 /// <summary>
 /// Executes the Mermaid CLI to render SVGs from definitions.
 /// </summary>
-public sealed class MermaidCliExecutor : IDisposable
+public sealed class MermaidCliExecutor
 {
-    // TODO: Make this configurable
-    private readonly SemaphoreSlim _semaphore = new(16);
-
     /// <summary>
     /// Sets the file path to a custom mermaid CLI executable. If not set the embedded version will be used.
     /// </summary>
     /// <param name="executable">The file path.</param>
+    /// <param name="mermaidTimeout">The length of time mermaid CLI can execute before being cancelled.</param>
     /// <returns>The current instance.</returns>
-    public MermaidCliExecutor(String executable) => Executable = executable;
+    public MermaidCliExecutor(String executable, TimeSpan mermaidTimeout)
+    {
+        Executable = executable;
+        Timeout = mermaidTimeout;
+    }
 
     /// <summary>
-    /// The length of time to wait for mmdc to execute. Defaults to 60 seconds.
+    /// The length of time to wait for mmdc to execute.
     /// </summary>
-    public TimeSpan Timeout { get; set; } = TimeSpan.FromSeconds(60);
+    public TimeSpan Timeout { get; set; }
 
     /// <summary>
     /// The path to the mermaid CLI executable.
@@ -36,7 +38,6 @@ public sealed class MermaidCliExecutor : IDisposable
         var timer = new CancellationTokenSource(Timeout);
         var cts = CancellationTokenSource.CreateLinkedTokenSource(token, timer.Token);
         String? outputFile = null;
-        await _semaphore.WaitAsync(cts.Token);
         try
         {
             var outputTempFile = Path.GetTempFileName();
@@ -47,7 +48,6 @@ public sealed class MermaidCliExecutor : IDisposable
         }
         finally
         {
-            _semaphore.Release();
             if (outputFile is not null)
                 File.Delete(outputFile);
         }
@@ -59,7 +59,7 @@ public sealed class MermaidCliExecutor : IDisposable
         {
             RedirectStandardInput = true
         };
-        args.ArgumentList.AddRange("--quiet", "--i", "-", "--outputFormat", "svg", "--output", outputFile);
+        args.ArgumentList.AddRange("--quiet", "-i", "-", "--outputFormat", "svg", "--output", outputFile);
 
         using (var proc = Process.Start(args))
         {
@@ -76,7 +76,4 @@ public sealed class MermaidCliExecutor : IDisposable
 
         return await File.ReadAllTextAsync(outputFile, token);
     }
-
-    /// <inheritdoc />
-    public void Dispose() => _semaphore.Dispose();
 }
