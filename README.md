@@ -35,6 +35,6 @@ await Bootstrapper.Factory
 ### Settings
 The following settings are used to configure the behavior of StatiqMermaid:
 
-- MermaidExecutable: `string` - the path to the mermaid CLI executable; defaults to "mmdc"
+- MermaidExecutable: `string` - the path to the mermaid CLI executable; defaults to "mmdc" or "mmdc.cmd" on Windows.
 - MermaidTimeoutSec: `int` - the number of seconds allowed for Mermaid CLI to render a single diagram before cancelling; defaults to 120
 - MaxDegreeOfParallelism: `int` - the maximum number of CLI executions to run in parallel; defaults to `Environment.ProcessorCount`

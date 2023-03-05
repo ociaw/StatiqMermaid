@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using Statiq.Common;
 
 namespace Ociaw.StatiqMermaid;
@@ -35,8 +36,11 @@ public abstract class RenderMermaidModule : TplParallelModule
     /// <summary>
     /// The path to the mermaid CLI executable.
     /// </summary>
-    /// <remarks>Defaults to <c>mmdc</c>.</remarks>
-    public Config<String> Executable { get; init; } = Config.FromSetting(nameof(StatiqMermaidKeys.MermaidExecutable), "mmdc");
+    /// <remarks>Defaults to <c>mmdc</c> or <c>mmdc.cmd</c> on Windows.</remarks>
+    public Config<String> Executable { get; init; } = Config.FromSetting(
+        nameof(StatiqMermaidKeys.MermaidExecutable),
+        RuntimeInformation.IsOSPlatform(OSPlatform.Windows) ? "mmdc.cmd" : "mmdc"
+    );
 
     /// <summary>
     /// The length of time an individual mermaid CLI command can execute before being cancelled.
