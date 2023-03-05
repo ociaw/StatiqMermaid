@@ -21,8 +21,15 @@
         <RepositoryUrl>https://github.com/ociaw/StatiqMermaid.git</RepositoryUrl>
         <RepositoryType>git</RepositoryType>
         <PackageReadmeFile>README.md</PackageReadmeFile>
-        <Version>0.1.0-beta.1</Version>
-        <PackageReleaseNotes>Initial release</PackageReleaseNotes>
+        <Version>0.1.0-beta.2</Version>
+        <PackageReleaseNotes>Version 0.1.0-beta.2
+    Completely reworked parallel processing to allow limiting the number of parallel executions
+    Added setting keys to configure executable path, timeout, and degree of parallelism
+    Simplified usage of the Mermaid Pipeline
+    Renamed RenderMermaidSvgFromHtml to RenderMermaidSvgInsideHtml
+    Defaulted to "mmdc.cmd" as executable path when running on Windows 
+    Suppressed warning for no input file
+        </PackageReleaseNotes>
     </PropertyGroup>
 
     <ItemGroup>

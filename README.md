@@ -32,6 +32,8 @@ await Bootstrapper.Factory
     .RunAsync();
 ```
 
+[Mermaid CLI](https://github.com/mermaid-js/mermaid-cli) must be installed; StatiqMermaid has been built against Version 10.0.0.
+
 ### Settings
 The following settings are used to configure the behavior of StatiqMermaid:
 
